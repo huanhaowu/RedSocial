@@ -24,10 +24,25 @@ const Login = ({setToken}) => {
     e.preventDefault()
 
     try {
+      // CHECK THIS PART
+      const { data: userExistsData, error: userExistsError } = await supabase
+      .from('User') // Replace 'users' with your actual table name
+      .select('id')
+      .eq('Email', formData.Email)
+
+      if (userExistsError) {
+        throw new Error('An error occurred while checking for user existence');
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.Email,
         password: formData.Password,
       })
+
+      if (error) {
+        throw error;
+      }
+
       console.log(data)
       setToken(data)
       navigate('./homepage');

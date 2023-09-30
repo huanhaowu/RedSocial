@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {supabase} from '../supabase/client.js';
 import {Link} from 'react-router-dom'
+import {postUser} from '../functions/User/postUser.js';
 
 const SignUp = () => {
 
@@ -33,6 +34,7 @@ const SignUp = () => {
           }
         }
       })
+      postUser(formData.Fullname, formData.Email);
       alert('Check your email for verification link')
 
     } catch (error) {
