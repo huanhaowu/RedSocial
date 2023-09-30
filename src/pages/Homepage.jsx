@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {supabase} from '../supabase/client.js';
-import {getLikesByPostID} from '../functions/getLikesByPostID';
-import {getCommentsCountByPostID} from '../functions/getCommentsCountByPostID';
+import {supabase} from '../supabase/client';
+import {getLikesByPostID} from '../functions/Like/getLikesByPostID.js';
+import {getCommentsCountByPostID} from '../functions/Comment/getCommentsCountByPostID.js';
 
 const Homepage = ({token}) => {
 

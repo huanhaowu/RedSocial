@@ -1,4 +1,4 @@
-import {supabase} from '../supabase/client.js';
+import {supabase} from '../../supabase/client.js';
 
 export async function getCommentsCountByPostID(PostID) {
     try {
