@@ -1,4 +1,4 @@
-import {supabase} from '../client'
+import {supabase} from '../supabase/client.js';
 
 export async function getLikesByPostID(PostID) {
     try {
