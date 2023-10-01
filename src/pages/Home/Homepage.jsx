@@ -8,19 +8,20 @@ import {postLikeByPostID} from '../../functions/Like/postLikeByPostID.js';
 import {deleteLikeByPostID} from '../../functions/Like/deleteLikeByPostID.js';
 import {getLikeByPostIDandUserID} from '../../functions/Like/getLikeByPostIDandUserID.js';
 import {postPost} from '../../functions/Post/postPost.js';
-
+import { formatTimestamp } from '../../functions/formatTimestamp';
 
 const Homepage = ({token}) => {
 
+    const navigate = useNavigate()
+    const [inputText, setInputText] = useState('');
+    
     const [posts, setPosts] = useState([]);
     const [likes, setLikes] = useState({});
     const [commentsCount, setCommentsCount] = useState({});
-    const navigate = useNavigate()
-    const [inputText, setInputText] = useState('');
 
     async function getAllPost() {
         try {
-            const { data: Post, error } = await supabase.from('Post').select('*');
+            const { data: Post, error } = await supabase.from('Post').select('*').order('Created_at', { ascending: false });
             if (error) {
                 throw error;
             }
@@ -77,8 +78,6 @@ const Homepage = ({token}) => {
         getAllPost()
     }, [])
 
-    
-
     return (
         <div>
             <h1> Welcome back, {token.user.user_metadata.first_name} </h1>
@@ -103,6 +102,8 @@ const Homepage = ({token}) => {
                     {posts.map((post) => (
                         <li key={post.id}>
                             {post.Text}; created by userId: {post.PostUser}
+                            <br />
+                            Created At: {formatTimestamp(post.Created_at)}
                             <br />
                             <button onClick={() => handleLikeClick(post.id)}> Likes: {likes[post.id] !== undefined ? likes[post.id] : 'Loading...'}</button> -
                             Comments: {commentsCount[post.id] !== undefined ? commentsCount[post.id] : 'Loading...'}
