@@ -7,6 +7,7 @@ import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
 import {postLikeByPostID} from '../../functions/Like/postLikeByPostID.js';
 import {deleteLikeByPostID} from '../../functions/Like/deleteLikeByPostID.js';
 import {getLikeByPostIDandUserID} from '../../functions/Like/getLikeByPostIDandUserID.js';
+import {postPost} from '../../functions/Post/postPost.js';
 
 
 const Homepage = ({token}) => {
@@ -15,7 +16,7 @@ const Homepage = ({token}) => {
     const [likes, setLikes] = useState({});
     const [commentsCount, setCommentsCount] = useState({});
     const navigate = useNavigate()
-
+    const [inputText, setInputText] = useState('');
 
     async function getAllPost() {
         try {
@@ -63,13 +64,39 @@ const Homepage = ({token}) => {
         getAllPost()
     }
 
+    async function handlePostSubmit(e){
+        e.preventDefault()
+        const user = await getUserIDbyEmail(token.user.email)
+        console.log('A new post has been submitted ' + inputText)
+        await postPost(inputText, user[0].id)
+        setInputText('');
+        getAllPost()
+    }
+
     useEffect(() => {
         getAllPost()
     }, [])
 
+    
+
     return (
         <div>
             <h1> Welcome back, {token.user.user_metadata.first_name} </h1>
+
+            <div>
+                <form id="textForm" onSubmit={handlePostSubmit}>
+                    <label for="textInput">Create a new post</label>
+                    <input
+                        type="text"
+                        id="textInput"
+                        name="textInput"
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
 
             <h1>Posts</h1>
                 <ul>
