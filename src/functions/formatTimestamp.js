@@ -1,6 +1,6 @@
 export function formatTimestamp(timestamp) {
     const now = new Date();
-    const createdAtDate = new Date(timestamp);
+    const createdAtDate = new Date(timestamp.replace(' ', 'T'));
     const timeDifference = now - createdAtDate;
     
     // Define time units in milliseconds

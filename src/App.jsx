@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {supabase} from './supabase/client.js';
-import {SignUp, Login, Homepage} from './pages'
+import {SignUp, Login, Homepage, Findusers, NotFound} from './pages'
 import {Routes, Route, json} from 'react-router-dom'
 
 const App = () => {
@@ -21,11 +21,13 @@ const App = () => {
 
   return (
     <div> 
-    <Routes>
-      <Route path={'/signup'} element={<SignUp/>}/>
-      <Route path={'/'} element={<Login setToken={setToken}/>}/>
-      {token ? <Route path={'/homepage'} element={<Homepage token={token}/>}/>: ''}
-    </Routes>
+      <Routes>
+        <Route path={'/signup'} element={<SignUp/>}/>
+        <Route path={'/'} element={<Login setToken={setToken}/>}/>
+        {token ? <Route path={'/homepage'} element={<Homepage token={token}/>}/>: '/'}
+        {token ? <Route path={'/findusers'} element={<Findusers token={token}/>}/>: '/'}
+        <Route path='*' element={<NotFound />} />
+      </Routes>
     </div>
   )
 }

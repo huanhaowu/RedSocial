@@ -49,6 +49,10 @@ const Homepage = ({token}) => {
         navigate('/');
     }
 
+    function handleFindusers(){
+        navigate('/findusers');
+    }
+
     async function handleLikeClick(PostID){
         const user = await getUserIDbyEmail(token.user.email)
         console.log( 'The user ' + user[0].id + ' liked the post ' + PostID);
@@ -60,7 +64,6 @@ const Homepage = ({token}) => {
         } else {
             // Call the deleteLikeByPostID function
             await deleteLikeByPostID(PostID, user[0].id);
-        
         }
         getAllPost()
     }
@@ -111,6 +114,7 @@ const Homepage = ({token}) => {
                     ))}
                 </ul>
                 
+            <button onClick={handleFindusers}>Find users</button>
             <button onClick={handleLogout}>Log out</button>
         </div>
     )
