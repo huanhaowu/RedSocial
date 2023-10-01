@@ -30,7 +30,6 @@ const SignUp = () => {
         options: {
           data: {
             first_name: formData.Fullname,
-            age: 27
           }
         }
       })

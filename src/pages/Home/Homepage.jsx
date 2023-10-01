@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {supabase} from '../../supabase/client';
 import {getLikesByPostID} from '../../functions/Like/getLikesByPostID.js';
 import {getCommentsCountByPostID} from '../../functions/Comment/getCommentsCountByPostID.js';
+import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
 
 const Homepage = ({token}) => {
 
@@ -14,6 +15,12 @@ const Homepage = ({token}) => {
     function handleLogout(){
         sessionStorage.removeItem('token');
         navigate('/');
+    }
+
+    async function handleLikeClick(PostID){
+        const user = await getUserIDbyEmail(token.user.email)
+        console.log(user[0].id)
+        console.log( 'The user ' + user[0].id + ' liked the post ' + PostID);
     }
 
     useEffect(() => {
@@ -55,12 +62,12 @@ const Homepage = ({token}) => {
                         <li key={post.id}>
                             {post.Text}; created by userId: {post.PostUser}
                             <br />
-                            Likes: {likes[post.id] !== undefined ? likes[post.id] : 'Loading...'} -
+                            <button onClick={() => handleLikeClick(post.id)}> Likes: {likes[post.id] !== undefined ? likes[post.id] : 'Loading...'}</button> -
                             Comments: {commentsCount[post.id] !== undefined ? commentsCount[post.id] : 'Loading...'}
                         </li>
                     ))}
                 </ul>
-
+                
             <button onClick={handleLogout}>Log out</button>
         </div>
     )
