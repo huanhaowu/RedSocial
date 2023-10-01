@@ -7,7 +7,12 @@ export default {
     './components/**/*.{html,js}',
   ],
   theme: {
-    extend: {},
+    extend: {
+        backgroundImage: theme => ({
+          'login-pic': "url('https://img.freepik.com/free-photo/abstract-bluish-paint-background-wallpaper_53876-97482.jpg')"
+        })
+
+    },
   },
   plugins: [],
 }

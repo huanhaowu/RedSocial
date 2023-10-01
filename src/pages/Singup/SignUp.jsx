@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import {supabase} from '../supabase/client.js';
+import {supabase} from '../../supabase/client.js';
 import {Link} from 'react-router-dom'
-import {postUser} from '../functions/User/postUser.js';
+import {postUser} from '../../functions/User/postUser.js';
 
 const SignUp = () => {
 
