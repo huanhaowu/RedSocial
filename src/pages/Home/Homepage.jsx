@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {supabase} from '../../supabase/client';
-import {getLikesByPostID} from '../../functions/Like/getLikesByPostID.js';
+import {getLikesCountByPostID} from '../../functions/Like/getLikesCountByPostID.js';
 import {getCommentsCountByPostID} from '../../functions/Comment/getCommentsCountByPostID.js';
 import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
+import {postLikeByPostID} from '../../functions/Like/postLikeByPostID.js';
+import {deleteLikeByPostID} from '../../functions/Like/deleteLikeByPostID.js';
+import {getLikeByPostIDandUserID} from '../../functions/Like/getLikeByPostIDandUserID.js';
+
 
 const Homepage = ({token}) => {
 
@@ -12,6 +16,32 @@ const Homepage = ({token}) => {
     const [commentsCount, setCommentsCount] = useState({});
     const navigate = useNavigate()
 
+
+    async function getAllPost() {
+        try {
+            const { data: Post, error } = await supabase.from('Post').select('*');
+            if (error) {
+                throw error;
+            }
+            setPosts(Post);
+
+            const likesMap = {};
+            const commentsCountMap = {};
+
+            for (const post of Post) {
+                const totalLikes = await getLikesCountByPostID(post.id);
+                likesMap[post.id] = totalLikes;
+
+                const totalComments = await getCommentsCountByPostID(post.id);
+                commentsCountMap[post.id] = totalComments;
+            }
+            setLikes(likesMap);
+            setCommentsCount(commentsCountMap);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
     function handleLogout(){
         sessionStorage.removeItem('token');
         navigate('/');
@@ -19,36 +49,21 @@ const Homepage = ({token}) => {
 
     async function handleLikeClick(PostID){
         const user = await getUserIDbyEmail(token.user.email)
-        console.log(user[0].id)
         console.log( 'The user ' + user[0].id + ' liked the post ' + PostID);
+        const hasLiked = await getLikeByPostIDandUserID(PostID, user[0].id);
+
+        if (hasLiked === false) {
+            // Call the postLikeByPostID function
+            await postLikeByPostID(PostID, user[0].id);
+        } else {
+            // Call the deleteLikeByPostID function
+            await deleteLikeByPostID(PostID, user[0].id);
+        
+        }
+        getAllPost()
     }
 
     useEffect(() => {
-        async function getAllPost() {
-            try {
-                const { data: Post, error } = await supabase.from('Post').select('*');
-                if (error) {
-                    throw error;
-                }
-                setPosts(Post);
-
-                const likesMap = {};
-                const commentsCountMap = {};
-
-                for (const post of Post) {
-                    const totalLikes = await getLikesByPostID(post.id);
-                    likesMap[post.id] = totalLikes;
-
-                    const totalComments = await getCommentsCountByPostID(post.id);
-                    commentsCountMap[post.id] = totalComments;
-                }
-                setLikes(likesMap);
-                setCommentsCount(commentsCountMap);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
         getAllPost()
     }, [])
 

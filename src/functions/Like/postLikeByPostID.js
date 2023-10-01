@@ -29,6 +29,5 @@ export async function postLikeByPostID(PostID, UserLikeID) {
       console.error('Error inserting new record:', insertError.message);
     } else {
       console.log('New like record inserted successfully.');
-      console.log(data);
     }
   }

@@ -1,6 +1,6 @@
 import {supabase} from '../../supabase/client.js';
 
-export async function getLikesByPostID(PostID) {
+export async function getLikesCountByPostID(PostID) {
     try {
       const { data: Like, error } = await supabase
         .from('Like')
