@@ -70,21 +70,20 @@ const Login = ({setToken}) => {
   
           <div className='mt-6'>
             <label className='block text-base mb-2' htmlFor="Email">Email</label>
-            <input className='border-2 rounded-md w-full text-base px-2 py-1 focus:outline-none focus:ring-2 focus:border-gray-300' placeholder='Email@site.com' name='Email' onChange={handleChange}/>
+            <input className='border border-2 rounded-md w-full text-base px-2 py-1 focus:outline-none focus:ring-2 focus:border-gray-300' placeholder='email' name='Email' onChange={handleChange}/>
           </div>
   
           <div className='mt-4'>
             <label className='block text-base mb-2' htmlFor="Password">Contraseña</label>
-            <input className='border-2 rounded-md w-full text-base px-2 py-1 focus:outline-none focus:ring-2 focus:border-gray-300' placeholder='Contraseña' name='Password' type='password' onChange={handleChange}/>
+            <input className='border border-2 rounded-md w-full text-base px-2 py-1 focus:outline-none focus:ring-2 focus:border-gray-300' placeholder='contraseña' name='Password' type='password' onChange={handleChange}/>
           </div>
   
           <div className='mt-4'>
-            <p className='inline text-sm'>¿Aun no tienes una cuenta?</p>
-            <a href='' className='inline ml-2 text-blue-500 underline text-sm'><Link to={'/signup'}>Crear cuenta</Link></a>
+            <a href=''><Link to={'/signup'}>¿Aun no tienes una cuenta?</Link></a>
           </div>
   
           <div className='mt-6 flex items-center justify-center'>
-            <button className='bg-blue-300 w-full rounded-sm flex items-center justify-center hover:cursor-pointer hover:text-white pt-1 pb-1' type='submit'> Ingresar </button>
+            <button className='bg-blue-300 w-full rounded-sm flex items-center justify-center hover:bg-blue-400' type='submit'> Ingresar </button>
           </div>
         </div>
       </form>
