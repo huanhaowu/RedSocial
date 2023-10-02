@@ -88,10 +88,12 @@ const Homepage = ({token}) => {
             <div>
                 <form id="textForm" onSubmit={handlePostSubmit}>
                     <label for="textInput">Create a new post</label>
+                    <br/>
                     <input
                         type="text"
                         id="textInput"
                         name="textInput"
+                        placeholder='Write your thoughts'
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         required
