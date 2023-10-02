@@ -23,9 +23,21 @@ const Findusers = ({token}) => {
   const [inputValue, setInputValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     // Implement a debounce function to delay the API request
+    const fetchCurrentUser = async () => {
+      try {
+        const user = await getUserIDbyEmail(token.user.email);
+        setCurrentUser(user[0].id);
+      } catch (error) {
+        console.error('Error fetching current user:', error.message);
+      }
+    };
+
+    fetchCurrentUser();
+
     const debounce = (func, delay) => {
       let timeoutId;
       return (...args) => {
@@ -47,8 +59,10 @@ const Findusers = ({token}) => {
           throw error;
         }
 
-        setSearchResults(users || []);
+        const filteredUsers = users.filter((user) => user.id !== currentUser);
+        setSearchResults(filteredUsers || []);
         setLoading(false);
+
       } catch (error) {
         console.error('Error fetching search results:', error.message);
         setLoading(false);
@@ -62,7 +76,7 @@ const Findusers = ({token}) => {
     } else {
       setSearchResults([]);
     }
-  }, [inputValue]);
+  }, [inputValue, currentUser, token.user.email]);
     //end of test
 
     const handleShowAllUsers = async () => {
@@ -74,24 +88,23 @@ const Findusers = ({token}) => {
         if (error) {
           throw error;
         }
-  
-        setSearchResults(allUsers || []);
+        const filteredUsers = allUsers.filter((u) => u.id !== currentUser);
+        setSearchResults(filteredUsers || []);
       } catch (error) {
         console.error('Error fetching all users:', error.message);
       }
     };
 
     async function handleFollow(UserID){
-      const user = await getUserIDbyEmail(token.user.email)
       // console.log( 'The user ' + user[0].id + ' started to follow ' + UserID);
-      const hasLiked = await getRelationByUserIDandFollowedID(user[0].id, UserID);
+      const hasLiked = await getRelationByUserIDandFollowedID(currentUser, UserID);
 
       if (hasLiked === false) {
           // Call the postLikeByPostID function
-          await postFollowUser(user[0].id, UserID);
+          await postFollowUser(currentUser, UserID);
       } else {
           // Call the deleteLikeByPostID function
-          await postUnfollowUser(user[0].id, UserID);
+          await postUnfollowUser(currentUser, UserID);
       }
   }
 
