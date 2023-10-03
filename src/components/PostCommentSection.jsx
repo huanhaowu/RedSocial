@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {getCommentsByPostID} from '../functions/Comment/getCommentsByPostID'
 import {postComment} from '../functions/Comment/postComment'
+import {formatTimestamp} from '../functions/formatTimestamp'
 
 const PostCommentSection = ({PostID, UserCommentID, updateCommentsCount}) => {
 
@@ -44,7 +45,7 @@ const PostCommentSection = ({PostID, UserCommentID, updateCommentsCount}) => {
 
             {comments.map((comment) => (
                 <div key={comment.id}>
-                    <p>{comment.User.Username} - {comment.Text}</p>
+                    <p>{comment.User.Username} - {comment.Text} - hace {formatTimestamp(comment.Created_at)}</p>
                 </div>
             ))}
         </div>
