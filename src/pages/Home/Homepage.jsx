@@ -84,6 +84,7 @@ const Homepage = ({token}) => {
     
     
 
+<<<<<<< HEAD
     return (
 
         <div style={{ backgroundImage: 'url("https://cdn.pixabay.com/photo/2014/08/15/11/29/beach-418742_1280.jpg")',
@@ -111,11 +112,18 @@ const Homepage = ({token}) => {
 
                         Crea un post</label>
                     <div className='pt-2 w-full rounded-md'>
+=======
+            <div>
+                <form id="textForm" onSubmit={handlePostSubmit}>
+                    <label for="textInput">Create a new post</label>
+                    <br/>
+>>>>>>> 4693984035f4eb3208140134fcbbe98fbaa61443
                     <input
                     className='border border-2 rounded-md w-full text-base  focus:outline-none focus:ring-1 focus:border-gray-300'
                         type="text"
                         id="textInput"
                         name="textInput"
+                        placeholder='Write your thoughts'
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         required

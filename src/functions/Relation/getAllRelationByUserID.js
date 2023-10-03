@@ -1,6 +1,6 @@
 import {supabase} from '../../supabase/client.js';
 
-export async function getRelationByUserID(UserID) {
+export async function getAllRelationByUserID(UserID) {
     try {
       const { data: relation, error } = await supabase
         .from('Relation')

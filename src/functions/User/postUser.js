@@ -12,7 +12,7 @@ export async function postUser(Username, Email) {
       throw new Error('An error occurred while checking for an existing user');
     }
 
-    if (existingUser) {
+    if (existingUser.length > 0) {
       // User with the same email already exists, display a customized modal
       showCustomModal('Ya existe un usuario con ese email, ingrese otro porfavor');
       return; // Exit the function

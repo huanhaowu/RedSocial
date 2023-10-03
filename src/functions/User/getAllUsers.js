@@ -1,4 +1,5 @@
-import { supabase } from './your-supabase-config-file'; // Make sure to import your Supabase configuration
+import {supabase} from '../../supabase/client.js';
+ // Make sure to import your Supabase configuration
 
 export async function getAllUsers() {
   try {

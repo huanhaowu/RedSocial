@@ -24,17 +24,16 @@ const SignUp = () => {
     e.preventDefault()
 
     try {
+      postUser(formData.Fullname, formData.Email);
       const { data, error } = await supabase.auth.signUp({
         email: formData.Email,
         password: formData.Password,
         options: {
           data: {
             first_name: formData.Fullname,
-            age: 27
           }
         }
       })
-      postUser(formData.Fullname, formData.Email);
       showSuccessNotification('Chequee su correo para verificar su usuario')
 
     } catch (error) {
@@ -53,7 +52,6 @@ const SignUp = () => {
     successContainer.appendChild(successNotification);
     document.body.appendChild(successContainer);
   
-   
     setTimeout(() => {
       successContainer.remove();
     }, 7000); 
