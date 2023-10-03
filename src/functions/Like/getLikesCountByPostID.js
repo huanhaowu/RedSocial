@@ -13,7 +13,7 @@ export async function getLikesCountByPostID(PostID) {
       }
 
       const totalLikes = Like ? Like.length : 0;
-      console.log(`Total likes for PostID ${PostID}: ${totalLikes}`);
+      // console.log(`Total likes for PostID ${PostID}: ${totalLikes}`);
       return totalLikes;
     } catch (error) {
       console.error('Error retrieving likes:', error);

@@ -14,19 +14,19 @@ export function formatTimestamp(timestamp) {
         return "Just now";
       } else if (timeDifference < 1000) {
         // If the time difference is less than 1 second, display in milliseconds
-        return `${Math.floor(timeDifference)} milliseconds ago`;
+        return `${Math.floor(timeDifference)} milisegundos`;
       } else if (timeDifference < 60000) {
         // If the time difference is less than 1 minute, display in seconds
-        return `${Math.floor(timeDifference / 1000)} seconds ago`;
+        return `${Math.floor(timeDifference / 1000)} segundos`;
       } else if (timeDifference < 3600000) {
         // If the time difference is less than 1 hour, display in minutes
-        return `${Math.floor(timeDifference / 60000)} minutes ago`;
+        return `${Math.floor(timeDifference / 60000)} minutos`;
       } else if (timeDifference < 86400000) {
         // If the time difference is less than 1 day, display in hours
-        return `${Math.floor(timeDifference / 3600000)} hours ago`;
+        return `${Math.floor(timeDifference / 3600000)} horas`;
       } else if (timeDifference < 604800000) {
         // If the time difference is less than 1 week, display in days
-        return `${Math.floor(timeDifference / 86400000)} days ago`;
+        return `${Math.floor(timeDifference / 86400000)} días`;
       } else {
         return createdAtDate.toLocaleDateString(); // Display the date if more than a week ago
       }
