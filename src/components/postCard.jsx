@@ -6,6 +6,7 @@ import {getLikeByPostIDandUserID} from '../functions/Like/getLikeByPostIDandUser
 import {postLikeByPostID} from '../functions/Like/postLikeByPostID.js';
 import {deleteLikeByPostID} from '../functions/Like/deleteLikeByPostID.js';
 import {getUserByID} from '../functions/User/getUserByID.js';
+import PostCommentSection from './PostCommentSection';
 
 const PostCard = ({PostUserID, PostText, PostTime, PostID, ActiveUserID}) => {
 
@@ -16,7 +17,6 @@ const PostCard = ({PostUserID, PostText, PostTime, PostID, ActiveUserID}) => {
     
     async function getUsername(){
         setActiveUsername(await getUserByID(PostUserID))
-        console.log('This is the user '+ activeUsername);
     }
     
     async function getCountLikesAndComments() {
@@ -90,7 +90,7 @@ const PostCard = ({PostUserID, PostText, PostTime, PostID, ActiveUserID}) => {
                             </button>
                         </div>
                     </div>
-                    {activeComment ? <div> Agrega un comentario </div> : ''}
+                    {activeComment ? <PostCommentSection PostID={PostID} UserCommentID={ActiveUserID} updateCommentsCount={getCountLikesAndComments}/> : ''}
                 </div>
     )
 }
