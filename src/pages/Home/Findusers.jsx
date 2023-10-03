@@ -5,6 +5,7 @@ import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
 import {getRelationByUserIDandFollowedID} from '../../functions/Relation/getRelationByUserIDandFollowedID.js';
 import {postFollowUser} from '../../functions/Relation/postFollowUser.js';
 import {postUnfollowUser} from '../../functions/Relation/postUnfollowUser.js';
+import UserCard from '../../components/UserCard'
 
 const Findusers = ({token}) => {
 
@@ -106,7 +107,7 @@ const Findusers = ({token}) => {
           // Call the deleteLikeByPostID function
           await postUnfollowUser(currentUser, UserID);
       }
-  }
+    }
 
   return (
     <>
@@ -126,11 +127,7 @@ const Findusers = ({token}) => {
           {searchResults.length > 0 && (
             <ul>
               {searchResults.map((user) => (
-                <li key={user.id}>{user.Username}
-                  <button className='ml-2'onClick={() => handleFollow(user.id)}>
-                    Follow user
-                  </button>
-                </li>
+                <UserCard key={user.id} id={user.id} username={user.Username} token={token}></UserCard>
               ))}
             </ul>
           )}
