@@ -56,7 +56,7 @@ const SignUp = () => {
    
     setTimeout(() => {
       successContainer.remove();
-    }, 15000); 
+    }, 7000); 
   }
 
   return (

@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 } */
+
+#textForm #textInput {
+  border: 2px solid #ccc; /* Set your desired border color */
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  transition: border-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+#textForm #textInput:focus {
+  border-color: blue; /* Set your desired border color */
+}
