@@ -110,32 +110,65 @@ const Findusers = ({token}) => {
     }
 
   return (
-    <>
-        <h1>Find users</h1>
-        <div>
-          <input
-            type="text"
-            placeholder="Search users by username"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button onClick={handleShowAllUsers}>Show All Users</button>
-          {loading && <div>Loading...</div>}
-          {searchResults.length === 0 && !loading && (
-            <p>No records found.</p>
-          )}
-          {searchResults.length > 0 && (
-            <ul>
-              {searchResults.map((user) => (
-                <UserCard key={user.id} id={user.id} username={user.Username} token={token}></UserCard>
-              ))}
-            </ul>
-          )}
-        </div>
+<>
+  <div style={{ backgroundImage: 'url("https://cdn.pixabay.com/photo/2014/08/15/11/29/beach-418742_1280.jpg")',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',  // This ensures that the background image stays fixed while scrolling
+    height: '100vh',  
+    }}>
+      <div className="grid grid-cols-6 gap-4">
+          <div className='mt-6 ml-2 col-start-1 col-end-2 bg-white rounded-md'>
 
-        <button onClick={handleHomePage}>Homepage</button>
-        <button onClick={handleLogout}>Log out</button>
-    </>
+          </div>
+          <div className='col-start-2 col-span-4 mt-6 bg-white rounded-md right-20 p-6 h-36 w-full'>
+                  <div>
+                    <h1 className='flex font-semibold'>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                      </svg>
+                      Agregar usuario</h1>
+                  </div>
+                  <div className='mt-2'>
+                      <input
+                      className='border border-2 rounded-md w-full text-base  focus:outline-none focus:ring-1 focus:border-gray-300'
+                      type="text"
+                      placeholder=" Buscar nombre de usuario"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      />
+                  </div>
+
+                  <div  className='flex justify-end mt-2'>
+                      <button className='bg-blue-300 w-46 p-1 rounded-md flex items-center justify-center hover:bg-blue-400' onClick={handleShowAllUsers}>Enseñar todos los usuarios</button>
+                  </div>
+          </div>
+
+          <div className='col-start-2 col-span-4 '>
+            <div className='h-4/5 overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+              {loading && <div>Loading...</div>}
+              {searchResults.length === 0 && !loading && (
+                <p>Este usuario no existe</p>
+              )}
+              {searchResults.length > 0 && (
+                <div>
+                  {searchResults.map((user) => (
+                    <UserCard key={user.id} id={user.id} username={user.Username} token={token}></UserCard>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+
+        
+
+            
+
+      </div>
+    </div>
+      </>
+   
   );
   
 }

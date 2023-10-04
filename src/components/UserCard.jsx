@@ -36,12 +36,14 @@ const UserCard = ({username, id, token}) => {
     }, [id, token.user.email])
 
     return (
-        <div>
-            <h1 className='text-xl'> {username}</h1>
-            <button onClick={() => {handleFollow(id)}}> 
-                {hasFollowed ? 'Followed' : 'Follow user'} 
-            </button>
+        
+        <div className='w-full mt-6 bg-white rounded-md p-6 h-36'>
+          <h1 className='text-xl'> {username}</h1>
+          <button onClick={() => { handleFollow(id) }}> 
+            {hasFollowed ? 'Seguido' : 'Seguir usuario'} 
+          </button>
         </div>
+     
     )
 }
 
