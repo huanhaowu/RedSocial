@@ -4,6 +4,7 @@ import {supabase} from '../../supabase/client';
 import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
 import {postPost} from '../../functions/Post/postPost.js';
 import PostCard from '../../components/PostCard';
+import { getAllUserRelation } from '../../functions/Relation/getAllUserRelation';
 
 const Homepage = ({token}) => {
 
@@ -14,17 +15,37 @@ const Homepage = ({token}) => {
 
     async function getAllPost() {
         try {
-            const { data: Post, error } = await supabase.from('Post').select('*').order('Created_at', { ascending: false });
-            if (error) {
-                throw error;
-            }
-            setPosts(Post);
-
+            //
             const user = await getUserIDbyEmail(token.user.email)
             setActiveUser(user[0].id)
+
+            const followedUsers = await getAllUserRelation(user[0].id);
+
+            if (followedUsers.length === 0) {
+                setPosts([]); // No followed users, clear posts
+                return;
+            }
+
+            const { data: Post, error: postError  } = await supabase
+            .from('Post')
+            .select('*')
+            .in('PostUser', followedUsers)
+            .order('Created_at', { ascending: false });
+
+            if (postError) {
+                throw postError;
+            }
+
+            setPosts(Post);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+    }
+
+    async function getActiveUser(){
+        const user = await getUserIDbyEmail(token.user.email)
+        setActiveUser(user[0].id)
+        console.log(activeUser)
     }
 
     function handleLogout(){
@@ -91,9 +112,15 @@ const Homepage = ({token}) => {
         </div>
 
         <div className=' h-3/4 w-full mt-2 overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
-            {posts.map((post) => (
-                <PostCard key={post.id} PostUserID={post.PostUser} PostText={post.Text} PostTime={post.Created_at} PostID={post.id} ActiveUserID={activeUser}/>
-            ))}
+                {posts.length === 0 ? (
+                    <div className='bg-white h-50 w-2/2 p-6 mt-6 rounded-md'>
+                        <p>There's no post, follow someone.</p>
+                    </div>
+                ) : (
+                    posts.map((post) => (
+                        <PostCard key={post.id} PostUserID={post.PostUser} PostText={post.Text} PostTime={post.Created_at} PostID={post.id} ActiveUserID={activeUser} />
+                    ))
+                )}
         </div>
 
         </div>       
