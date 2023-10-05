@@ -83,7 +83,7 @@ const Login = ({setToken}) => {
           </div>
   
           <div className='mt-6 flex items-center justify-center'>
-            <button className='bg-blue-300 w-full rounded-sm flex items-center justify-center hover:bg-blue-400' type='submit'> Ingresar </button>
+            <button className='bg-blue-300 w-full rounded-md flex items-center justify-center hover:bg-blue-400 py-1' type='submit'> Ingresar </button>
           </div>
         </div>
       </form>

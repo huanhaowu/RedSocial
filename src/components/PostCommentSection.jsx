@@ -29,23 +29,29 @@ const PostCommentSection = ({PostID, UserCommentID, updateCommentsCount}) => {
     }
 
     return (
-        <div>
+        <div className='mt-4 flex flex-col justify-center'>
             {/* this is the {PostID} and the active user is {UserCommentID} */}
 
-            <form onSubmit={handleCommentSubmit}>
+            <form onSubmit={handleCommentSubmit} className='mb-3'>
                 <input
                     type="text"
-                    placeholder="Write a comment..."
+                    placeholder="Leave a comment..."
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     required
+                    className='rounded-full border-2 h-fit px-4 py-1' 
+                    style={{ width: '87%' }}
                 />
-                <button type="submit">Post</button>
+                <button type="submit" className='ml-2 w-fit border-2 h-fit rounded-full px-4 py-1 bg-blue-400 text-white' >Post</button>
             </form>
 
             {comments.map((comment) => (
-                <div key={comment.id}>
-                    <p>{comment.User.Username} - {comment.Text} - hace {formatTimestamp(comment.Created_at)}</p>
+                <div key={comment.id} className='my-1.5 w-full bg-gray-200 px-3 py-1 rounded-lg'>
+                    <div className='flex justify-between'>
+                        <p className='font-semibold text-sm'>{comment.User.Username} </p>
+                        <p className='text-sm'> hace {formatTimestamp(comment.Created_at)} </p>
+                    </div>
+                    <p className='text-sm'>{comment.Text}</p>
                 </div>
             ))}
         </div>

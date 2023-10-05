@@ -88,7 +88,7 @@ const SignUp = () => {
             <a href=''><Link to={'/'}>¿Ya tienes una cuenta?</Link></a>
           </div>
     <div className='mt-6 flex items-center justify-center'>
-      <button className='bg-blue-300 w-full rounded-sm flex items-center justify-center hover:bg-blue-400' type='submit'>Registrar</button>
+      <button className='bg-blue-300 w-full rounded-md flex items-center justify-center hover:bg-blue-400 py-1' type='submit'>Registrar</button>
     </div>
     </div>
       </form>
