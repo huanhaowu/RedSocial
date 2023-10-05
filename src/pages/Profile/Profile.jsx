@@ -6,7 +6,7 @@ import {postPost} from '../../functions/Post/postPost.js';
 import PostCard from '../../components/PostCard';
 import {getAllUserRelation } from '../../functions/Relation/getAllUserRelation';
 
-const Homepage = ({token}) => {
+const Profile = ({token}) => {
 
     const navigate = useNavigate()
     const [inputText, setInputText] = useState('');
@@ -15,9 +15,14 @@ const Homepage = ({token}) => {
 
     async function getAllPost() {
         try {
+            //
+            const user = await getUserIDbyEmail(token.user.email)
+            setActiveUser(user[0].id)
+
             const { data: Post, error: postError  } = await supabase
             .from('Post')
             .select('*')
+            .eq('PostUser', user[0].id)
             .order('Created_at', { ascending: false });
 
             if (postError) {
@@ -61,16 +66,16 @@ const Homepage = ({token}) => {
                     <div className='flex flex-col items-center'>
                         <h1 className='font-semibold'> Bienvenido, {token.user.user_metadata.first_name}</h1>
                         <div id='navButtons' className='mt-6 flex flex-col justify-center'>
-                            <button onClick={() => {navigate('/homepage');}} className="bg-blue-400 w-52 hover:bg-blue-500 text-white font-semibold py-1 px-6 rounded-lg text-left">
+                            <button onClick={() => {navigate('/homepage');}} className="w-52 font-semibold py-1 px-6 text-left">
                                 Homepage
                             </button>
-                            <button onClick={() => {navigate('/friends');}} className=" w-52 font-semibold py-1 px-6 text-left">
+                            <button onClick={() => {navigate('/friends');}} className="w-52 font-semibold py-1 px-6 text-left">
                                 Friends
                             </button>
-                            <button onClick={() => {navigate('/findusers');}} className=" w-52 font-semibold py-1 px-6 text-left">
+                            <button onClick={() => {navigate('/findusers');}} className="w-52 font-semibold py-1 px-6 text-left">
                                 Explore
                             </button>
-                            <button onClick={() => {navigate('/profile');}} className=" w-52 font-semibold py-1 px-6 text-left">
+                            <button onClick={() => {navigate('/profile');}} className="bg-blue-400 w-52 hover:bg-blue-500 text-white font-semibold py-1 px-6 rounded-lg text-left">
                                 Profile
                             </button>
                         </div>
@@ -79,27 +84,7 @@ const Homepage = ({token}) => {
             </div>
             <div className='ml-96 w-3/5'>
                 <div className='mt-6 bg-white rounded-md right-20 p-6 h-fit w-full '>
-                    <form id="textForm" onSubmit={handlePostSubmit}>
-                            <label className='flex text-lg font-semibold' for="textInput">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
-                                </svg>
-                                Crea un post</label>
-                            <div className='pt-2 w-full rounded-md'>
-                                <input
-                                className='border border-2 rounded-md w-full text-base  focus:outline-none focus:ring-1 focus:border-gray-300'
-                                    type="text"
-                                    id="textInput"
-                                    name="textInput"
-                                    value={inputText}
-                                    onChange={(e) => setInputText(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className='mt-4 flex justify-end'>
-                            <button className='bg-blue-400 w-24 rounded-md flex items-center justify-center hover:bg-blue-500 text-white font-semibold py-1 px-6' type="submit">Submit</button>
-                        </div>
-                    </form>
+                    Datos del usuario añadir
                 </div>
 
                 <div className=' h-3/4 w-full mt-2 overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
@@ -120,5 +105,5 @@ const Homepage = ({token}) => {
     )
 }
 
-export default Homepage
+export default Profile
 
