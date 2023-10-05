@@ -119,9 +119,10 @@ const Findusers = ({token}) => {
     }}>
       <div className="grid grid-cols-6 gap-4">
           <div className='mt-6 ml-2 col-start-1 col-end-2 bg-white rounded-md'>
-
+            <button onClick={handleHomePage}>Homepage</button>
+            <button onClick={handleLogout} className='ml-2'>Log out</button>
           </div>
-          <div className='col-start-2 col-span-4 mt-6 bg-white rounded-md right-20 p-6 h-36 w-full'>
+          <div className='col-start-2 col-span-4 mt-6 bg-white rounded-md right-20 p-6 h-fit w-full'>
                   <div>
                     <h1 className='flex font-semibold'>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -139,16 +140,18 @@ const Findusers = ({token}) => {
                       />
                   </div>
 
-                  <div  className='flex justify-end mt-2'>
-                      <button className='bg-blue-300 w-46 p-1 rounded-md flex items-center justify-center hover:bg-blue-400' onClick={handleShowAllUsers}>Enseñar todos los usuarios</button>
+                  <div  className='flex justify-end mt-3'>
+                      <button className='bg-blue-300 w-46 p-1 rounded-md flex items-center justify-center hover:bg-blue-400 px-4 py-2 text-sm' onClick={handleShowAllUsers}>Enseñar todos los usuarios</button>
                   </div>
           </div>
 
           <div className='col-start-2 col-span-4 '>
-            <div className='h-4/5 overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+            <div className='h-fit overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
               {loading && <div>Loading...</div>}
               {searchResults.length === 0 && !loading && (
-                <p>Este usuario no existe</p>
+                <div className='bg-white h-50 w-2/2 p-6 mt-6 rounded-md'>
+                  <p>Este usuario no existe</p>
+                </div>
               )}
               {searchResults.length > 0 && (
                 <div>
@@ -159,12 +162,6 @@ const Findusers = ({token}) => {
               )}
             </div>
           </div>
-
-
-        
-
-            
-
       </div>
     </div>
       </>

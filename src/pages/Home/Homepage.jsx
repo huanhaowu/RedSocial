@@ -76,7 +76,7 @@ const Homepage = ({token}) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',  // This ensures that the background image stays fixed while scrolling
-    height: '100vh',  
+    height: '130vh',  
     }}>
     <div className='flex h-full w-full'>
             <div className='fixed bg-white h-96 w-72 ml-16 mt-6 rounded-md flex justify-center '>
@@ -87,7 +87,7 @@ const Homepage = ({token}) => {
                 </div>
             </div>
     <div className='ml-96 w-3/5'>
-        <div className=' mt-6 bg-white rounded-md right-20 p-6 h-36 w-full '>
+        <div className='mt-6 bg-white rounded-md right-20 p-6 h-fit w-full '>
             <form id="textForm" onSubmit={handlePostSubmit}>
                     <label className='flex text-lg font-semibold' for="textInput">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
