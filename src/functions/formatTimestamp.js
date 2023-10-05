@@ -24,10 +24,24 @@ export function formatTimestamp(timestamp) {
       } else if (timeDifference < 86400000) {
         // If the time difference is less than 1 day, display in hours
         return `${Math.floor(timeDifference / 3600000)} horas`;
-      } else if (timeDifference < 604800000) {
+      } else if (timeDifference < week) {
         // If the time difference is less than 1 week, display in days
-        return `${Math.floor(timeDifference / 86400000)} días`;
+        const days = Math.floor(timeDifference / day);
+        if (days === 1) {
+          return "1 dia";
+        } else {
+          return `${days} dias`;
+        }
+      } else if (timeDifference >= week) {
+        // If the time difference is more than or equal to a week, display in weeks
+        const weeks = Math.floor(timeDifference / week);
+        if (weeks === 1) {
+          return "1 semana";
+        } else {
+          return `${weeks} semanas`;
+        }
       } else {
-        return createdAtDate.toLocaleDateString(); // Display the date if more than a week ago
+        // If the time difference is more than a week, display the date
+        return createdAtDate.toLocaleDateString();
       }
 }
