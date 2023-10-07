@@ -64,6 +64,9 @@ const Profile = ({token}) => {
         <div className='flex h-full w-full'>
             <div className='fixed bg-white h-5/6 w-72 ml-16 mt-6 py-4 rounded-md flex flex-col items-center justify-between'>
                     <div className='flex flex-col items-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
                         <h1 className='font-semibold'> Bienvenido, {token.user.user_metadata.first_name}</h1>
                         <div id='navButtons' className='mt-6 flex flex-col justify-center'>
                             <button onClick={() => {navigate('/homepage');}} className="w-52 font-semibold py-1 px-6 text-left">
