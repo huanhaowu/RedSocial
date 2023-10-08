@@ -3,7 +3,7 @@ import {supabase} from '../../supabase/client.js';
 export async function postLikeByPostID(PostID, UserLikeID) {
     const { data: existingRecords, error } = await supabase
       .from('Like')
-      .select()
+      .select('*')
       .eq('PostID', PostID)
       .eq('UserLikeID', UserLikeID);
 
