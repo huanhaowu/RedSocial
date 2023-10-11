@@ -40,7 +40,7 @@ const UserCard = ({username, id, token}) => {
         <div className='w-full mt-3 bg-white rounded-md p-6 h-fit flex justify-between'>
           <h1 className='text-xl'> {username}</h1>
           <button className='bg-blue-300 w-46 p-1 rounded-3xl flex items-center justify-center hover:bg-blue-400 px-4 py-2' onClick={() => { handleFollow(id) }}> 
-            {hasFollowed ? 'Seguido' : 'Seguir usuario'} 
+            {hasFollowed ? 'Following' : 'Follow'} 
           </button>
         </div>
      
