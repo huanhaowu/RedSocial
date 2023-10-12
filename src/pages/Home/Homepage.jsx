@@ -15,9 +15,13 @@ const Homepage = ({token}) => {
 
     async function getAllPost() {
         try {
+            const user = await getUserIDbyEmail(token.user.email)
+            setActiveUser(user[0].id)
+
             const { data: Post, error: postError  } = await supabase
             .from('Post')
             .select('*')
+            .eq('PostUser', user[0].id)
             .order('Created_at', { ascending: false });
 
             if (postError) {
