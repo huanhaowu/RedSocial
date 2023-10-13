@@ -5,7 +5,7 @@ import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
 import {postPost} from '../../functions/Post/postPost.js';
 import PostCard from '../../components/PostCard';
 import {getAllUserRelation } from '../../functions/Relation/getAllUserRelation';
-import FollowersCount from '../../components/count';
+import Counter from '../../components/Counter';
 
 const Profile = ({token}) => {
 
@@ -91,7 +91,7 @@ const Profile = ({token}) => {
                     </div>
                     <>
                     <div className='absolute top-60 left-10 flex text-center justify-center items-center bg-white rounded-md shadow-lg border-2 border-black-800 w-32 h-10'>
-                    <h1 className='font-semibold'><FollowersCount></FollowersCount></h1>
+                    <h1 className='font-semibold'><Counter></Counter></h1>
                     </div>
                     </>
                 </div>
