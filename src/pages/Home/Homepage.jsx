@@ -12,6 +12,8 @@ const Homepage = ({ token }) => {
   const [activeUser, setActiveUser] = useState('');
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
+  const postsPerPage = 5;
 
     async function getAllPost() {
         try {
@@ -23,13 +25,18 @@ const Homepage = ({ token }) => {
           .select('*')
           .eq('PostUser', user[0].id)
           .order('Created_at', { ascending: false })
-          .range(0, page * 10);
+          .range(0, page * postsPerPage);
 
           if (postError) {
               throw postError;
           }
 
       setPosts(Post);
+
+      if ((Post.length)/page < postsPerPage) {
+        setHasMorePosts(false);
+      }
+
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -181,12 +188,14 @@ const Homepage = ({ token }) => {
             )}
           </div>
           <div className="flex justify-center mt-2">
+          {hasMorePosts && (
             <button
               className="bg-blue-400 hover-bg-blue-500 text-white font-semibold py-1 px-6 rounded-md"
               onClick={() => setPage(page + 1)}
             >
               Cargar
             </button>
+          )}
           </div>
     
           </div>
