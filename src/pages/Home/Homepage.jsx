@@ -40,6 +40,7 @@ const Homepage = ({ token }) => {
     navigate('/');
   }
 
+  
   async function handlePostSubmit(e) {
     e.preventDefault();
     const user = await getUserIDbyEmail(token.user.email);
@@ -49,10 +50,30 @@ const Homepage = ({ token }) => {
     getAllPost();
   }
 
+
   useEffect(() => {
     getAllPost();
   }, [page]);
 
+ function addPhotos(ev){
+    const files = ev.target.files;
+    for (const file of files){
+      const newName = Date.now() + file.name;
+      supabase.storage.from('photos').upload(newName, file).then(results => {
+        if( results.data)
+        {
+              console.log({
+                url:process.env.NEXT_PUBLIC_SUPABASE_URL + '/storage/v1/object/public/photos/'+ results.data.path,
+              })
+        } else{
+          console.log(results);
+        }
+       
+      })
+    }
+ }
+
+ //https://apqbojnvlakjpkzelzro.supabase.co/storage/v1/object/public/photos/1697231069971gecko%20moria.png
   return (
     <div
       style={{
@@ -60,7 +81,7 @@ const Homepage = ({ token }) => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
-        height: '150vh',
+        height: '110vh',
       }}
     >
       <div className="flex h-full w-full">
@@ -128,9 +149,25 @@ const Homepage = ({ token }) => {
                                 />
                             </div>
                             <div className='mt-4 flex justify-end'>
-                                <button className='bg-blue-400 w-24 rounded-md flex items-center justify-center hover:bg-blue-500 text-white font-semibold py-1 px-6' type="submit">Submit</button>
-                            </div>
+                                <button className='bg-blue-400 w-24 rounded-md flex items-center justify-center hover:bg-blue-500 text-white font-semibold py-1 px-6 mr-2' type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
+                                  </svg>
+                                  Post
+                                  </button>
+                                <label className='bg-blue-400 w-40 rounded-md flex items-center justify-center hover:bg-blue-500 text-white font-semibold py-1 px-6 mr-2'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
+
+                                  <input type='file' className='hidden' multiple onChange={addPhotos}/>
+                                 <span>Subir foto</span>
+                                </label>
+                           </div>
+
                         </form>
+                       
+                        
           </div>
           <div className="h-3/4 w-full mt-2 overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin">
             {posts.length === 0 ? (

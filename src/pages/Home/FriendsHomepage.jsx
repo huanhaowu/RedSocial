@@ -68,7 +68,7 @@ const FriendsHomepage = ({token}) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',  // This ensures that the background image stays fixed while scrolling
-    height: '150vh',  
+    height: '100vh',  
     }}>
         <div className='flex h-full w-full'> 
         
