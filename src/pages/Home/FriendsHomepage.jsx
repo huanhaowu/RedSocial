@@ -108,12 +108,15 @@ const FriendsHomepage = ({token}) => {
                     </svg>
                     Cerrar sesión</button>
             </div>
+
+            
             <div className='ml-96 w-3/5'>
-                <div className='mt-6 bg-white rounded-md right-20 p-6 h-fit w-full '>
+                <div className='mt-6 bg-white rounded-md p-6  w-auto '>
                    Posts de Amigos
                 </div>
 
-                <div className='h-3/4 w-full mt-2 overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+                <div className='mt-4 h-1/2 w-full overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+                      
                         {posts.length === 0 ? (
                             <div className='bg-white h-50 w-2/2 p-6 mt-6 rounded-md'>
                                 <p>No hay posts, sigue a alguien</p>
@@ -123,6 +126,7 @@ const FriendsHomepage = ({token}) => {
                                 <PostCard key={post.id} PostUserID={post.PostUser} PostText={post.Text} PostTime={post.Created_at} PostID={post.id} ActiveUserID={activeUser} />
                             ))
                         )}
+                
                 </div>
 
             </div>       

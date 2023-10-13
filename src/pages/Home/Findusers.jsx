@@ -158,9 +158,9 @@ const Findusers = ({token}) => {
                     </svg>
                     Cerrar sesión</button>
             </div>
-            <div className='ml-96 w-3/5'>
+            <div className='ml-96 mr-2 w-3/5'>
           
-          <div className='col-start-2 col-span-4 mt-6 bg-white rounded-md right-20 p-6 h-fit w-full'>
+          <div className=' mt-6 bg-white rounded-md p-6 h-fit w-full'>
                   <div>
                     <h1 className='flex font-semibold'>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -183,11 +183,11 @@ const Findusers = ({token}) => {
                   </div>
           </div>
 
-          <div className='col-start-2 col-span-4 '>
-            <div className='h-fit overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+          <div className=' mt-4 h-2/3 w-full overflow-y-auto overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+            <div className=''>
               {loading && <div>Loading...</div>}
               {searchResults.length === 0 && !loading && (
-                <div className='bg-white h-50 w-2/2 p-6 mt-6 rounded-md'>
+                <div className='bg-white h-50 w-full  p-6 mt-6 rounded-md'>
                   <p>Este usuario no existe</p>
                 </div>
               )}

@@ -15,14 +15,18 @@ const Homepage = ({ token }) => {
 
     async function getAllPost() {
         try {
-            const { data: Post, error: postError  } = await supabase
-            .from('Post')
-            .select('*')
-            .order('Created_at', { ascending: false });
+          const user = await getUserIDbyEmail(token.user.email)
+          setActiveUser(user[0].id)
 
-      if (postError) {
-        throw postError;
-      }
+          const { data: Post, error: postError  } = await supabase
+          .from('Post')
+          .select('*')
+          .eq('PostUser', user[0].id)
+          .order('Created_at', { ascending: false });
+
+          if (postError) {
+              throw postError;
+          }
 
       setPosts(Post);
     } catch (error) {
@@ -138,17 +142,10 @@ const Homepage = ({ token }) => {
               ))
             )}
           </div>
-          <div className="flex justify-center mt-2">
-            <button
-              className="bg-blue-400 hover-bg-blue-500 text-white font-semibold py-1 px-6 rounded-md"
-              onClick={() => setPage(page + 1)}
-            >
-              Cargar
-            </button>
+    
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
