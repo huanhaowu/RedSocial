@@ -15,12 +15,39 @@ const Profile = ({token}) => {
     const [activeUser, setActiveUser] = useState('');
     const [posts, setPosts] = useState([]);
 
-
+    async function getAllPost() {
+        try {
+            //
+            const user = await getUserIDbyEmail(token.user.email)
+            setActiveUser(user[0].id)
+            const { data: Post, error: postError  } = await supabase
+            .from('Post')
+            .select('*')
+            .eq('PostUser', user[0].id)
+            .order('Created_at', { ascending: false });
+            if (postError) {
+                throw postError;
+            }
+            setPosts(Post);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
     function handleLogout(){
         sessionStorage.removeItem('token');
         navigate('/');
     }
-
+    async function handlePostSubmit(e){
+        e.preventDefault()
+        const user = await getUserIDbyEmail(token.user.email)
+        console.log('A new post has been submitted ' + inputText)
+        await postPost(inputText, user[0].id)
+        setInputText('');
+        getAllPost()
+    }
+    useEffect(() => {
+        getAllPost()
+    }, [])
 
     return (
 
@@ -69,9 +96,7 @@ const Profile = ({token}) => {
                     Cerrar sesión</button>
             </div>
             <div className='ml-96 w-3/5 mr-2'>
-                <div className=' text-center mt-6 bg-white rounded-md right-20 p-6 h-fit w-full '>
-                    Datos del usuario
-                </div>
+               
                 <div className='relative bg-white rounded-md w-full h-80 mt-10 '>
                     <div className='absolute top-4 left-10'>
                         <h1 className='font-semibold'>Usuario</h1>
@@ -94,6 +119,17 @@ const Profile = ({token}) => {
                     <h1 className='font-semibold'><Counter></Counter></h1>
                     </div>
                     </>
+                </div>
+                <div className=' h-96 w-full mt-2 overflow-y-scroll overflow-hidden hover:overflow-y-scroll scrollbar scrollbar-thumb-grey-200 scrollbar-thin'>
+                        {posts.length === 0 ? (
+                            <div className='bg-white h-50 w-2/2 p-6 mt-6 rounded-md'>
+                                <p>There's no post, follow someone.</p>
+                            </div>
+                        ) : (
+                            posts.map((post) => (
+                                <PostCard key={post.id} PostUserID={post.PostUser} PostText={post.Text} PostTime={post.Created_at} PostID={post.id} ActiveUserID={activeUser} />
+                            ))
+                        )}
                 </div>
 
             </div>       
