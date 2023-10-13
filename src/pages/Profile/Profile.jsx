@@ -55,7 +55,7 @@ const Profile = ({token}) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',  // This ensures that the background image stays fixed while scrolling
-    height: '150vh',  
+    height: '100vh',  
     }}>
         <div className='flex h-full w-full'>
             <div className='fixed bg-white h-5/6 w-72 ml-16 mt-6 py-4 rounded-md flex flex-col items-center justify-between'>
