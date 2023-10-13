@@ -1,4 +1,4 @@
-# Red Social
+# Natural Red
 
 Una red social lightweight, desarrollada en Vite.js, React.js, Supabase y TailwindCSS.
 
