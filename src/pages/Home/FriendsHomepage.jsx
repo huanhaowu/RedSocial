@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {supabase} from '../../supabase/client';
 import {getUserIDbyEmail} from '../../functions/User/getUserIDbyEmail.js';
@@ -12,6 +12,7 @@ const FriendsHomepage = ({token}) => {
     const [inputText, setInputText] = useState('');
     const [activeUser, setActiveUser] = useState('');
     const [posts, setPosts] = useState([]);
+    const [page, setPage] = useState(1);
 
     async function getAllPost() {
         try {
@@ -30,7 +31,8 @@ const FriendsHomepage = ({token}) => {
             .from('Post')
             .select('*')
             .in('PostUser', followedUsers)
-            .order('Created_at', { ascending: false });
+            .order('Created_at', { ascending: false })
+            .range(0, page * 10);
 
             if (postError) {
                 throw postError;
@@ -58,7 +60,7 @@ const FriendsHomepage = ({token}) => {
 
     useEffect(() => {
         getAllPost()
-    }, [])
+    }, [page])
 
     return (
 
@@ -128,6 +130,14 @@ const FriendsHomepage = ({token}) => {
                         )}
                 
                 </div>
+                <div className="flex justify-center mt-2">
+            <button
+              className="bg-blue-400 hover-bg-blue-500 text-white font-semibold py-1 px-6 rounded-md"
+              onClick={() => setPage(page + 1)}
+            >
+              Cargar
+            </button>
+          </div>
 
             </div>       
         </div>
